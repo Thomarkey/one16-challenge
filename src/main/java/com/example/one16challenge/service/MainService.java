@@ -66,7 +66,7 @@ public class MainService {
     }
 
     //Filter out the words that are of the required word length (because they cant be combined)
-    public Set<String> getReducedWords() throws IOException {
+    public Set<String> getFilteredWords() throws IOException {
         ValidationUtil.checkValidWordLength(wordLength);
         Set<String> uniqueWords = getUniqueWords();
         return FileHelper.reduceWordsToMaxWordLength(uniqueWords, wordLength);
@@ -75,8 +75,8 @@ public class MainService {
     //Filter the words that are a possible combination
     public Set<String> getPossibleWordCombinations() throws IOException {
         ValidationUtil.checkValidWordLength(wordLength);
-        Set<String> reducedWords = getReducedWords();
-        return WordCombiner.generatePossibleCombinations(reducedWords, wordLength);
+        Set<String> filteredWords = getFilteredWords();
+        return WordCombiner.generatePossibleCombinations(filteredWords, wordLength);
     }
 
     //Match the words and find valid combination

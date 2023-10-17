@@ -42,10 +42,10 @@ public class MainController {
         return ResponseEntity.ok(validWords);
     }
 
-    @GetMapping("/reduced-words")
-    public ResponseEntity<Set<String>> getReducedWords() throws IOException {
-        Set<String> reducedWords = mainService.getReducedWords();
-        return ResponseEntity.ok(reducedWords);
+    @GetMapping("/filtered-words")
+    public ResponseEntity<Set<String>> getFilteredWords() throws IOException {
+        Set<String> filteredWords = mainService.getFilteredWords();
+        return ResponseEntity.ok(filteredWords);
     }
 
     @GetMapping("/possible-combinations")
