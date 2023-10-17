@@ -9,7 +9,7 @@ import java.util.Set;
 public class WordValidator {
 
     //validate and combine the words to their combination
-    public static Set<String> validateCombinations(Set<String> requiredLengthWords, Set<String> possibleWordCombinations) {
+    public static Set<String> validateCombinations(Set<String> validWords, Set<String> possibleWordCombinations) {
         Set<String> validCombinations = new HashSet<>();
 
         //iterate over the possible words comabinations
@@ -20,7 +20,7 @@ public class WordValidator {
             String combinedWord = parts[parts.length - 1];
 
             //check if word is present in the list
-            if (requiredLengthWords.contains(combinedWord)) {
+            if (validWords.contains(combinedWord)) {
                 validCombinations.add(possibleWordCombination);
             }
         }

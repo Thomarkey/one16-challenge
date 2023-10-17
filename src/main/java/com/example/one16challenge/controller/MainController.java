@@ -37,10 +37,10 @@ public class MainController {
         return ResponseEntity.ok(uniqueWords);
     }
 
-    @GetMapping("/required-length-words")
-    public ResponseEntity<Set<String>> getRequiredLengthWords() throws IOException {
-        Set<String> requiredLengthWords = mainService.getRequiredLengthWords();
-        return ResponseEntity.ok(requiredLengthWords);
+    @GetMapping("/valid-words")
+    public ResponseEntity<Set<String>> getValidWords() throws IOException {
+        Set<String> validWords = mainService.getValidWords();
+        return ResponseEntity.ok(validWords);
     }
 
     @GetMapping("/reduced-words")

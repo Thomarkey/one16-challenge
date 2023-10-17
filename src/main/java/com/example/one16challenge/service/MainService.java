@@ -33,14 +33,14 @@ public class MainService {
 
     public Set<String> getSolution() throws IOException {
         try {
-            //Filter the words of the required length to check if present
-            Set<String> requiredLengthWords = getRequiredLengthWords();
+            //Filter the words of the required length
+            Set<String> validWords = getValidWords();
 
             //Filter the words that are a possible combination and combine them
             Set<String> possibleWordCombinations = getPossibleWordCombinations();
 
             //Match the words
-            Set<String> solutionList = getValidCombinations(requiredLengthWords, possibleWordCombinations);
+            Set<String> solutionList = getValidCombinations(validWords, possibleWordCombinations);
 
             return solutionList;
         } catch (IOException e) {
@@ -56,7 +56,7 @@ public class MainService {
     }
 
     //Filter the words of the required length to check if present
-    public Set<String> getRequiredLengthWords() throws IOException {
+    public Set<String> getValidWords() throws IOException {
         ValidationUtil.checkValidWordLength(wordLength);
         Set<String> uniqueWords = getUniqueWords();
         return FileHelper.filterWordsByLength(uniqueWords, wordLength);
@@ -77,8 +77,8 @@ public class MainService {
     }
 
     //Match the words
-    public Set<String> getValidCombinations(Set<String> requiredLengthWords, Set<String> possibleWordCombinations) {
-        return WordValidator.validateCombinations(requiredLengthWords, possibleWordCombinations);
+    public Set<String> getValidCombinations(Set<String> validWords, Set<String> possibleWordCombinations) {
+        return WordValidator.validateCombinations(validWords, possibleWordCombinations);
     }
 
 }
