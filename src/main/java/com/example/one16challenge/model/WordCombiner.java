@@ -19,9 +19,11 @@ public class WordCombiner {
 
                 //Make sure we are not using the same word and if length is correct
                 if (!(word1.equals(word2)) && (word1.length() + word2.length() == wordLength)) {
-                    //Add both combinations
-                    combinations.add(word1 + word2);
-                    combinations.add(word2 + word1);
+                    //Add both combinations in asked format
+                    String combination1 = word1 + "+" + word2 + "=" + word1 + word2;
+                    String combination2 = word2 + "+" + word1 + "=" + word2 + word1;
+                    combinations.add(combination1);
+                    combinations.add(combination2);
                 }
             }
 

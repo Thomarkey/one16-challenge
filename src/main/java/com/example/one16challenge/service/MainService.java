@@ -5,7 +5,6 @@ import com.example.one16challenge.model.FileReader;
 import com.example.one16challenge.model.WordCombiner;
 import com.example.one16challenge.model.WordValidator;
 import com.example.one16challenge.util.ValidationUtil;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,11 +36,12 @@ public class MainService {
             //Filter the words of the required length to check if present
             Set<String> requiredLengthWords = getRequiredLengthWords();
 
-            //Filter the words that are a possible combination
+            //Filter the words that are a possible combination and combine them
             Set<String> possibleWordCombinations = getPossibleWordCombinations();
 
             //Match the words
-            Set<String> solutionList = getValidCombination(requiredLengthWords, possibleWordCombinations);
+            Set<String> solutionList = getValidCombinations(requiredLengthWords, possibleWordCombinations);
+
             return solutionList;
         } catch (IOException e) {
             throw new RuntimeException("An error occurred while processing the data", e);
@@ -77,8 +77,8 @@ public class MainService {
     }
 
     //Match the words
-    public Set<String> getValidCombination(Set<String> possibleSolutions, Set<String> possibleCombinations) {
-        return WordValidator.validateCombinations(possibleSolutions, possibleCombinations);
+    public Set<String> getValidCombinations(Set<String> requiredLengthWords, Set<String> possibleWordCombinations) {
+        return WordValidator.validateCombinations(requiredLengthWords, possibleWordCombinations);
     }
 
 }
