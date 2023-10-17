@@ -1,0 +1,25 @@
+package com.example.one16challenge.model;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class FileHelper {
+
+    //Create the set of words with specific length
+    public static Set<String> filterWordsByLength(Set<String> wordList, int maxLength){
+        Set<String> wordsWithLength = new HashSet<>();
+        for (String word : wordList) {
+            if (word.length() == maxLength) {
+                wordsWithLength.add(word);
+            }
+        }
+        return wordsWithLength;
+    }
+
+    //Remove words that are of a given length or longer since they cant combine to exact this length
+    public static Set<String> reduceWordsToMaxWordLength(Set<String> wordList, int maxLength){
+        wordList.removeIf(word -> word.length() >= maxLength);
+        return wordList;
+    }
+
+}
