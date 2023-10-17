@@ -15,7 +15,7 @@ public class FileReader {
     //Load a set of unique words from the list
     public static Set<String> loadWordList(String filePath) throws IOException {
 
-        //hashset to filter out duplicates and for time complexity purpose
+        //Hashset to filter out duplicates and for time complexity purpose
         Set<String> words = new HashSet<>();
         try {
             List<String> lines = Files.readAllLines(Path.of(filePath));
@@ -26,6 +26,7 @@ public class FileReader {
             }
 
         } catch (IOException e) {
+            //TODO: add different logging
             e.printStackTrace();
         }
         return words;

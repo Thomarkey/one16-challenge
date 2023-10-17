@@ -8,18 +8,18 @@ import java.util.Set;
 @Component
 public class WordValidator {
 
-    //validate and combine the words to their combination
+    //Combine and validate the combined words
     public static Set<String> validateCombinations(Set<String> validWords, Set<String> possibleWordCombinations) {
         Set<String> validCombinations = new HashSet<>();
 
-        //iterate over the possible words comabinations
+        //Iterate over the possible words combinations
         for (String possibleWordCombination : possibleWordCombinations) {
-            //split up the word in the asked format to be able to match the combined word
+            //Split up the word in the asked format to be able to match the combined word
             String[] parts = possibleWordCombination.split("[+=]");
-            //take the last part to include future multiple word combinations
+            //Take the last part to include future multiple word combinations
             String combinedWord = parts[parts.length - 1];
 
-            //check if word is present in the list
+            //Check if word is present in the list
             if (validWords.contains(combinedWord)) {
                 validCombinations.add(possibleWordCombination);
             }

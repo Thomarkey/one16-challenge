@@ -26,7 +26,6 @@ public class WordCombiner {
                     combinations.add(combination2);
                 }
             }
-
         }
 
         return combinations;

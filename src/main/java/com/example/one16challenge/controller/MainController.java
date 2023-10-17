@@ -24,7 +24,6 @@ public class MainController {
         return LocalDateTime.now().toString();
     }
 
-
     @GetMapping("/solution")
     public ResponseEntity<Set<String>> getSolution() throws IOException {
         Set<String> solutionList = mainService.getSolution();

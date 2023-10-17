@@ -16,9 +16,11 @@ import java.util.Set;
 @Service
 public class MainService {
 
-    @Value("${input.file.path}") // Inject the file path from application.properties
+    // Inject the used file path from application.properties
+    @Value("${input.file.path}")
     private String inputFilePath;
 
+    // Inject the required word length from application.properties
     @Value("${word.length}")
     private int wordLength;
 
@@ -31,6 +33,7 @@ public class MainService {
     @Autowired
     private WordValidator wordValidator;
 
+    //Get the valid solution for the challenge
     public Set<String> getSolution() throws IOException {
         try {
             //Filter the words of the required length
@@ -55,14 +58,14 @@ public class MainService {
         return FileReader.loadWordList(inputFilePath);
     }
 
-    //Filter the words of the required length to check if present
+    //Get valid words based on given word length
     public Set<String> getValidWords() throws IOException {
         ValidationUtil.checkValidWordLength(wordLength);
         Set<String> uniqueWords = getUniqueWords();
         return FileHelper.filterWordsByLength(uniqueWords, wordLength);
     }
 
-    //Filter out the words that are of the required wordlength (because they cant be combined)
+    //Filter out the words that are of the required word length (because they cant be combined)
     public Set<String> getReducedWords() throws IOException {
         ValidationUtil.checkValidWordLength(wordLength);
         Set<String> uniqueWords = getUniqueWords();
@@ -76,7 +79,7 @@ public class MainService {
         return WordCombiner.generatePossibleCombinations(reducedWords, wordLength);
     }
 
-    //Match the words
+    //Match the words and find valid combination
     public Set<String> getValidCombinations(Set<String> validWords, Set<String> possibleWordCombinations) {
         return WordValidator.validateCombinations(validWords, possibleWordCombinations);
     }
