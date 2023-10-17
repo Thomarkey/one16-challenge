@@ -4,7 +4,10 @@ import com.example.one16challenge.model.FileHelper;
 import com.example.one16challenge.model.FileReader;
 import com.example.one16challenge.model.WordCombiner;
 import com.example.one16challenge.model.WordValidator;
+import com.example.one16challenge.util.ValidationUtil;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,6 +16,12 @@ import java.util.Set;
 
 @Service
 public class MainService {
+
+    @Value("${input.file.path}") // Inject the file path from application.properties
+    private String inputFilePath;
+
+    @Value("${word.length}")
+    private int wordLength;
 
     @Autowired
     private FileReader fileReader;
@@ -25,10 +34,13 @@ public class MainService {
 
     public Set<String> getSolution() throws IOException {
         try {
-            Set<String> uniqueWords = getUniqueWords("src/main/resources/input.txt");
-            Set<String> requiredLengthWords = getRequiredLengthWords(uniqueWords, 6);
-            Set<String> reducedWords = getReducedWords(uniqueWords, 5);
-            Set<String> possibleWordCombinations = getPossibleWordCombinations(reducedWords, 6);
+            //Filter the words of the required length to check if present
+            Set<String> requiredLengthWords = getRequiredLengthWords();
+
+            //Filter the words that are a possible combination
+            Set<String> possibleWordCombinations = getPossibleWordCombinations();
+
+            //Match the words
             Set<String> solutionList = getValidCombination(requiredLengthWords, possibleWordCombinations);
             return solutionList;
         } catch (IOException e) {
@@ -37,34 +49,34 @@ public class MainService {
 
     }
 
-    public Set<String> getUniqueWords(String filePath) throws IOException {
-        if (filePath == null || filePath.isEmpty()) {
-            throw new IllegalArgumentException("Invalid filePath. Please provide a valid file path.");
-        }
-        return FileReader.loadWordList(filePath);
+    //Load the words from the input file
+    public Set<String> getUniqueWords() throws IOException {
+        ValidationUtil.checkValidFilePath(inputFilePath);
+        return FileReader.loadWordList(inputFilePath);
     }
 
-    public Set<String> getRequiredLengthWords(Set<String> words, int length) {
-        if (length <= 0) {
-            throw new IllegalArgumentException("Invalid length value. Length must be a positive integer.");
-        }
-        return FileHelper.filterWordsByLength(words, length);
+    //Filter the words of the required length to check if present
+    public Set<String> getRequiredLengthWords() throws IOException {
+        ValidationUtil.checkValidWordLength(wordLength);
+        Set<String> uniqueWords = getUniqueWords();
+        return FileHelper.filterWordsByLength(uniqueWords, wordLength);
     }
 
-    public Set<String> getReducedWords(Set<String> words, int maxLength) {
-        if (maxLength <= 0) {
-            throw new IllegalArgumentException("Invalid maxLength value. Length must be a positive integer.");
-        }
-        return FileHelper.reduceWordsToMaxWordLength(words, maxLength);
+    //Filter out the words that are of the required wordlength (because they cant be combined)
+    public Set<String> getReducedWords() throws IOException {
+        ValidationUtil.checkValidWordLength(wordLength);
+        Set<String> uniqueWords = getUniqueWords();
+        return FileHelper.reduceWordsToMaxWordLength(uniqueWords, wordLength);
     }
 
-    public Set<String> getPossibleWordCombinations(Set<String> words, int wordLength) {
-        if (wordLength <= 0) {
-            throw new IllegalArgumentException("Invalid wordLength value. Length must be a positive integer.");
-        }
-        return WordCombiner.generatePossibleCombinations(words, wordLength);
+    //Filter the words that are a possible combination
+    public Set<String> getPossibleWordCombinations() throws IOException {
+        ValidationUtil.checkValidWordLength(wordLength);
+        Set<String> reducedWords = getReducedWords();
+        return WordCombiner.generatePossibleCombinations(reducedWords, wordLength);
     }
 
+    //Match the words
     public Set<String> getValidCombination(Set<String> possibleSolutions, Set<String> possibleCombinations) {
         return WordValidator.validateCombinations(possibleSolutions, possibleCombinations);
     }

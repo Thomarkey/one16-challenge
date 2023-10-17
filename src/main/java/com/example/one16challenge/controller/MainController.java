@@ -33,25 +33,25 @@ public class MainController {
 
     @GetMapping("/unique-words")
     public ResponseEntity<Set<String>> getUniqueWords() throws IOException {
-        Set<String> uniqueWords = mainService.getUniqueWords("src/main/resources/input.txt");
+        Set<String> uniqueWords = mainService.getUniqueWords();
         return ResponseEntity.ok(uniqueWords);
     }
 
     @GetMapping("/required-length-words")
     public ResponseEntity<Set<String>> getRequiredLengthWords() throws IOException {
-        Set<String> requiredLengthWords = mainService.getRequiredLengthWords(mainService.getUniqueWords("src/main/resources/input.txt"), 6);
+        Set<String> requiredLengthWords = mainService.getRequiredLengthWords();
         return ResponseEntity.ok(requiredLengthWords);
     }
 
     @GetMapping("/reduced-words")
     public ResponseEntity<Set<String>> getReducedWords() throws IOException {
-        Set<String> reducedWords = mainService.getReducedWords(mainService.getUniqueWords("src/main/resources/input.txt"), 5);
+        Set<String> reducedWords = mainService.getReducedWords();
         return ResponseEntity.ok(reducedWords);
     }
 
     @GetMapping("/possible-combinations")
     public ResponseEntity<Set<String>> getPossibleWordCombinations() throws IOException {
-        Set<String> possibleWordCombinations = mainService.getPossibleWordCombinations(mainService.getReducedWords(mainService.getUniqueWords("src/main/resources/input.txt"),6),6);
+        Set<String> possibleWordCombinations = mainService.getPossibleWordCombinations();
         return ResponseEntity.ok(possibleWordCombinations);
     }
 

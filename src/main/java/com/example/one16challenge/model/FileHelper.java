@@ -1,8 +1,11 @@
 package com.example.one16challenge.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class FileHelper {
 
     //Create the set of words with specific length
@@ -17,8 +20,8 @@ public class FileHelper {
     }
 
     //Remove words that are of a given length or longer since they cant combine to exact this length
-    public static Set<String> reduceWordsToMaxWordLength(Set<String> wordList, int maxLength){
-        wordList.removeIf(word -> word.length() >= maxLength);
+    public static Set<String> reduceWordsToMaxWordLength(Set<String> wordList, int length){
+        wordList.removeIf(word -> word.length() >= length);
         return wordList;
     }
 

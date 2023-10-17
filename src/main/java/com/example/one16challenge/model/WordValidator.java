@@ -1,8 +1,11 @@
 package com.example.one16challenge.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class WordValidator {
 
     //Validate combinations and return a set of valid combinations
