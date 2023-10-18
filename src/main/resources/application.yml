@@ -1,5 +1,0 @@
-input:
-  file:
-    path: src/main/resources/input.txt
-word:
-  length: 6
