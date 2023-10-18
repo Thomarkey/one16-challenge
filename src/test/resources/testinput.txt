@@ -1,0 +1,10 @@
+longword
+foo
+bar
+o
+foobar
+barfoo
+baro
+5char
+5charo
+foo
